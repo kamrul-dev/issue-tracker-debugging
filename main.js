@@ -7,7 +7,6 @@ function submitIssue(e) {
   const assignedTo = getInputValue('issueAssignedTo');
   const id = Math.floor(Math.random()*100000000) + '';
   const status = 'Open';
-
   const issue = { id, description, severity, assignedTo, status };
   let issues = [];
   if (localStorage.getItem('issues')){
@@ -23,8 +22,8 @@ function submitIssue(e) {
 
 const closeIssue = id => {
   const issues = JSON.parse(localStorage.getItem('issues'));
-  const currentIssue = issues.find(issue => issue.id === id);
-  currentIssue.status = 'Closed';
+  const currentIssue = issues.find(issue => issue.id == id);
+  currentIssue.status = 'closed';
   localStorage.setItem('issues', JSON.stringify(issues));
   fetchIssues();
 }
@@ -51,7 +50,7 @@ const fetchIssues = () => {
                               <h3> ${description} </h3>
                               <p><span class="glyphicon glyphicon-time"></span> ${severity}</p>
                               <p><span class="glyphicon glyphicon-user"></span> ${assignedTo}</p>
-                              <a href="#" onclick="setStatusClosed(${id})" class="btn btn-warning">Close</a>
+                              <a href="#" onclick="closeIssue(${id})" class="btn btn-warning">Close</a>
                               <a href="#" onclick="deleteIssue(${id})" class="btn btn-danger">Delete</a>
                               </div>`;
   }
